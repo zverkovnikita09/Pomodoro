@@ -2,10 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
 }
 
 button{
   cursor: pointer;
+  background-color: transparent;
 }
 
 .container{
@@ -13,12 +16,31 @@ button{
   width: 100%;
   display: grid;
   place-content: center;
+  position: relative;
+  transition: 0.2s;
+}
+
+.work{
+  background-color: #bf6a6a;
+  color: #bf6a6a;
+}
+
+.short-break{
+  background-color: #c9cd98;
+  color: #c9cd98;
+}
+
+.long-break{
+  background-color: #94bf8b;
+  color: #94bf8b;
 }
 
 .timer{
   display: flex;
   font-size: 100px;
   column-gap: 10px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .startBtn{
@@ -26,4 +48,32 @@ button{
   border: 1px solid #000;
   padding: 15px 25px;
   border-radius: 5px;
+}
+
+.settings-block{
+  position: absolute;
+  right: 50%;
+  top: 0;
+}
+
+.settings{
+  transform-origin: 100% 0;
+  transform: scale(0);
+  transition: 0.2s;
+  background-color: #fff;
+  padding: 30px;
+}
+
+.settings.open{
+  transform: scale(1);
+}
+
+.task{
+  border: 1px solid #fff;
+  padding: 20px;
+  position: relative;
+}
+
+.task.done{
+  text-decoration: line-through;
 }
