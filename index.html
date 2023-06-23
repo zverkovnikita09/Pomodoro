@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -7,27 +7,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+    <script src="https://kit.fontawesome.com/239d8f3749.js" crossorigin="anonymous"></script>
     <title>Pomodoro</title>
 </head>
 
 <body>
-    <div class="container work">
+    <div class="wrapper work">
         <div class="settings-block">
-            <button class="settings-button">Setting</button>
-            <div class="settings">
-
+            <button class="settings-button"><i class="fa-solid fa-gear"></i></button>
+            <form class="settings">
+                <div class="settings-label with-min">
+                    Время работы
+                    <div class="settings-changeable changeable">
+                        <button type="button" class="decrease">-</button>
+                        <span class="changeable-value work-value"></span>
+                        <button type="button" class="increase">+</button>
+                    </div>
+                    мин
+                </div>
+                <div class="settings-label with-min">
+                    Короткий перерыв
+                    <div class="settings-changeable changeable">
+                        <button type="button" class="decrease">-</button>
+                        <span class="changeable-value short-break-value"></span>
+                        <button type="button" class="increase">+</button>
+                    </div>
+                    мин
+                </div>
+                <div class="settings-label with-min">
+                    Длинный перерыв
+                    <div class="settings-changeable changeable">
+                        <button type="button" class="decrease">-</button>
+                        <span class="changeable-value long-break-value"></span>
+                        <button type="button" class="increase">+</button>
+                    </div>
+                    мин
+                </div>
+                <div class="settings-label">
+                    Длинный перерыв каждый
+                    <div class="settings-changeable changeable">
+                        <button type="button" class="decrease">-</button>
+                        <span class="changeable-value period-value"></span>
+                        <button type="button" class="increase">+</button>
+                    </div>
+                    период
+                </div>
+                <button class="setting-submit" type="submit">Сохранить</button>
+            </form>
+        </div>
+        <div class="container">
+            <div class="timer">
+                <p class="minutes"></p>
+                <p>:</p>
+                <p class="seconds"></p>
             </div>
+            <p class="period"></p>
+            <button type="button" class="startBtn"><i class="fa-solid fa-play"></i></button>
+            <div class="buttons-container">
+                <button type="button" class="next-step" id="next-step"><i class="fa-solid fa-forward"></i></button>
+                <button type="button" class="reset"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+            <div class="task-add-block">
+                <button class="task-add-button">+ Добавить</button>
+                <div class="task-add">
+                    <input type="" class="task-add-input">
+                    <div class="changeable task-add-changeable">
+                        Количество периодов:
+                        <button type="button" class="decrease">-</button>
+                        <span class="changeable-value">1</span>
+                        <button type="button" class="increase">+</button>
+                    </div>
+                    <div class="buttons-container">
+                        <button type="button" class="task-add-submit">Добавить</button>
+                        <button type="button" class="task-add-cancel">Отмена</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="tasks-container"></ul>
         </div>
-        <div class="timer">
-            <p class="minutes"></p>
-            <p>:</p>
-            <p class="seconds"></p>
-        </div>
-        <button type="button" class="startBtn">Старт</button>
-        <button type="button" class="next-step" id="next-step">К следующей ступени</button>
-        <ul class="tasks-container">
-            <input type="" id="task">
-        </ul>
     </div>
 </body>
 
