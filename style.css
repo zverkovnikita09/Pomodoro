@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("./Roboto-Regular.ttf");
+}
+
 :root{
   --main-color: #bf6a6a;
 }
@@ -29,6 +34,7 @@ ul{
   position: relative;
   transition: 0.2s;
   color: var(--main-color);
+  font-family: "Roboto";
   background-color: var(--main-color);
 }
 
@@ -301,4 +307,17 @@ ul{
   color: #fff;
   font-size: 20px;
   background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .settings{
+    padding: 10px;
+    font-size: 15px;
+  }
+  .setting-submit{
+    font-size: 16px;
+  }
+  .container{
+    width: 300px;
+  }
 }

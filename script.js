@@ -16,7 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const longBreakValueHtml = settings.querySelector('.long-break-value');
   const periodValueHtml = settings.querySelector('.period-value');
   const settingChangeablesBlocks = settings.querySelectorAll('.settings-changeable')
+  const settingsMenu = settings.querySelector('.settings')
 
+
+  //add Task
   const addTaskBlock = document.querySelector('.task-add-block');
   const addTaskButton = addTaskBlock.querySelector('.task-add-button');
   const addTaskInput = addTaskBlock.querySelector('.task-add-input');
@@ -39,6 +42,28 @@ window.addEventListener('DOMContentLoaded', () => {
   let iteration = 1;
   let periodsToLong = 4;
 
+  function initChangeableEvents(element, max, min) {
+    element.querySelector('.increase').addEventListener('click', () => {
+      const valueSpan = element.querySelector('.changeable-value');
+      let value = Number(valueSpan.innerText);
+      if (value + 1 > max) {
+        value = max;
+      }
+      else value = value + 1;
+      valueSpan.innerText = value;
+    })
+    element.querySelector('.decrease').addEventListener('click', () => {
+      const valueSpan = element.querySelector('.changeable-value');
+      let value = Number(valueSpan.innerText);
+      if (value - 1 < min) {
+        value = min;
+      }
+      else value = value - 1;
+      valueSpan.innerText = value;
+    })
+  }
+
+  //render-functions
   function renderTime() {
     let minutes = String(Math.floor(time / 60));
     let seconds = String(time - minutes * 60)
@@ -75,14 +100,16 @@ window.addEventListener('DOMContentLoaded', () => {
       </li>`
     })
     document.querySelectorAll('.task')?.forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', e => {
+        if (e.target.closest('.task-delete-button')) {
+          deleteTask(el.dataset.id)
+          return
+        }
+        if (e.target.closest('.task-done-button')) {
+          makeTaskDone(el.dataset.id)
+          return
+        }
         makeTaskActive(el.dataset.id)
-      })
-      el.querySelector('.task-delete-button').addEventListener('click', () => {
-        deleteTask(el.dataset.id)
-      })
-      el.querySelector('.task-done-button').addEventListener('click', () => {
-        makeTaskDone(el.dataset.id)
       })
     })
   }
@@ -95,37 +122,21 @@ window.addEventListener('DOMContentLoaded', () => {
     settingChangeablesBlocks.forEach(el => initChangeableEvents(el, 99, 1));
   }
 
-  function initChangeableEvents(element, max, min) {
-    const valueSpan = element.querySelector('.changeable-value');
-    let value = Number(valueSpan.innerText);
-    element.querySelector('.increase').addEventListener('click', () => {
-      if (value + 1 > max) {
-        value = max;
-      }
-      else value = value + 1;
-      valueSpan.innerText = value;
-    })
-    element.querySelector('.decrease').addEventListener('click', () => {
-      if (value - 1 < min) {
-        value = min;
-      }
-      else value = value - 1;
-      valueSpan.innerText = value;
-    })
-  }
-
+  //tasks
   function addTask() {
     if (!addTaskInput.value) return
+    const pomodorosValueHtml = addTaskChangeable.querySelector('.changeable-value')
 
     const newTask = {
       id: Date.now(),
       task: addTaskInput.value,
       isDone: false,
-      pomodoros: Number(addTaskChangeable.querySelector('.changeable-value').innerHTML),
+      pomodoros: Number(pomodorosValueHtml.innerHTML),
       pomodorosDone: 0,
     }
 
     addTaskInput.value = '';
+    pomodorosValueHtml.innerHTML = 1;
     tasks.push(newTask);
     renderTasks();
     closeAddTaskBlock()
@@ -157,6 +168,16 @@ window.addEventListener('DOMContentLoaded', () => {
     renderTasks()
   }
 
+  function openAddTaskBlock() {
+    addTaskBlock.classList.add('dropdown-open')
+    addTaskInput.focus()
+  }
+
+  function closeAddTaskBlock() {
+    addTaskBlock.classList.remove('dropdown-open')
+  }
+
+  //timer
   function switchTimer(timerType) {
     if (timerType === 'workTime') {
       time = initialTimerValues.workTime;
@@ -225,8 +246,20 @@ window.addEventListener('DOMContentLoaded', () => {
     renderPeriod();
   }
 
+
+  //settings
   function toggleSettings() {
-    settings.querySelector('.settings').classList.toggle('open');
+    settingsMenu.classList.toggle('open')
+
+  }
+
+  function settingsHandler(e) {
+    const clicked = settingsMenu.contains(e.target);
+    const its_btnMenu = settingsButton.contains(e.target)
+
+    if (!clicked && !its_btnMenu && settingsMenu.classList.contains('open')) {
+      toggleSettings();
+    }
   }
 
   function setSettings(e) {
@@ -246,15 +279,8 @@ window.addEventListener('DOMContentLoaded', () => {
     resetTimer();
   }
 
-  function openAddTaskBlock() {
-    addTaskBlock.classList.add('dropdown-open')
-  }
-
-  function closeAddTaskBlock() {
-    addTaskBlock.classList.remove('dropdown-open')
-  }
-
   //event-listeners
+  document.addEventListener('click', settingsHandler)
   startBtn.addEventListener('click', toggleTimer);
   nextStepButton.addEventListener('click', nextPeriod);
   settingsButton.addEventListener('click', toggleSettings);
