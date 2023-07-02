@@ -139,11 +139,11 @@ ul{
   row-gap: 15px;
   border-radius: 5px;
   font-size: 18px;
-  transition: max-height 0.3s;
+  transition: max-height 0.2s;
 }
 
 .settings.open{
-  max-height: 350px
+  max-height: 300px
 }
 
 .settings-label{
