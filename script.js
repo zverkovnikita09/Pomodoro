@@ -123,7 +123,6 @@ window.addEventListener("DOMContentLoaded", () => {
     shortBreakValueHtml.innerHTML = initialTimerValues.shortBreakTime / 60;
     longBreakValueHtml.innerHTML = initialTimerValues.LongBreakTime / 60;
     periodValueHtml.innerHTML = periodsToLong;
-    settingChangeablesBlocks.forEach((el) => initChangeableEvents(el, 99, 1));
   }
 
   //tasks
@@ -324,5 +323,6 @@ window.addEventListener("DOMContentLoaded", () => {
   renderTasks();
   renderPeriod();
   renderSettingsInput();
+  settingChangeablesBlocks.forEach((el) => initChangeableEvents(el, 99, 1));
   initChangeableEvents(addTaskChangeable, 100, 1);
 });
