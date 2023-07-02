@@ -130,20 +130,20 @@ ul{
 
 .settings{
   margin-top: 5px;
-  transform-origin: 50% 0;
-  transform: scaleY(0);
+  max-height: 0;
+  overflow: hidden;
   transition: 0.2s;
   background-color: #fff;
-  padding: 30px;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
   border-radius: 5px;
   font-size: 18px;
+  transition: max-height 0.3s;
 }
 
 .settings.open{
-  transform: scaleY(1);
+  max-height: 350px
 }
 
 .settings-label{
@@ -153,6 +153,12 @@ ul{
   align-items: center;
   column-gap: 10px;
   font-weight: 700;
+  max-width: calc(100% - 20px);
+  margin: 0 10px;
+}
+
+.settings-label:first-child{
+  margin-top: 10px;
 }
 
 .changeable{
@@ -186,6 +192,7 @@ ul{
   background-color: var(--main-color);
   width: max-content;
   margin: 10px auto 0;
+  margin-bottom: 10px;
 }
 
 .task-add-block{
@@ -311,7 +318,6 @@ ul{
 
 @media (max-width: 768px) {
   .settings{
-    padding: 10px;
     font-size: 15px;
   }
   .setting-submit{
